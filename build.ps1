@@ -165,16 +165,12 @@ try {
 
     Write-Cyan 'Running compiler...'
 
-    $Compiler = Get-Parameter "compiler"
-    if($Compiler -eq "") {
-        $Compiler = "0"
-    }
-    Write-Magenta $CompilerParam
-    $Action
-
     $CompilerTimer = [Diagnostics.Stopwatch]::StartNew()
     
-    dotnet build "./EXTLIBSharp.csproj" -nologo
+    $Action = $oargs[1]
+    Write-Cyan $Action
+
+    dotnet build "./EXTLIBSharp.csproj" --no-restore --nologo
 
     $CompilerTimer.Stop()
     $CompileTime = $CompilerTimer.Elapsed
